@@ -144,3 +144,14 @@ cmake --build build --target fullcheck
 cmake --build build --target collect-licenses
 ls build/third_party_licenses/
 ```
+
+## pixiの導入
+
+```bash
+curl -fsSL https://pixi.sh/install.sh | bash
+export PATH="$HOME/.pixi/bin:$PATH"
+# bashに設定する場合、以下のコマンドを実行
+echo '[ -d "$HOME/.pixi/bin" ] && export PATH="$HOME/.pixi/bin:$PATH"' >> ~/.bashrc
+pixi install # install package
+pixi shell # activate environment
+```
