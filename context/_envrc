@@ -1,0 +1,2 @@
+# for direnv 
+[ -d .pixi ] && eval "$(pixi shell-hook)"

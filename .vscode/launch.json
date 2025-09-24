@@ -1,0 +1,63 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Main Program",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/src/${input:executableName}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "osx": { "MIMode": "lldb" },
+            "linux": { "MIMode": "gdb" },
+            "windows": { "MIMode": "vs" },
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for debugger",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "cmake_build"
+        },
+        {
+            "name": "Debug Tests",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/tests/cpp/${input:testExecutableName}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "osx": { "MIMode": "lldb" },
+            "linux": { "MIMode": "gdb" },
+            "windows": { "MIMode": "vs" },
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for debugger",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "cmake_build"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "executableName",
+            "description": "実行ファイル名を入力",
+            "type": "promptString",
+            "default": "main"
+        },
+        {
+            "id": "testExecutableName",
+            "description": "テスト実行ファイル名を入力",
+            "type": "promptString",
+            "default": "test_sub"
+        }
+    ]
+}

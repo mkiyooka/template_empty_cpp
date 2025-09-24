@@ -1,0 +1,101 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+            "PATH": "${env:HOME}/.pixi/bin:${env:PATH}"
+        }
+    },
+    "tasks": [
+        {
+            "label": "pixi_install",
+            "type": "shell",
+            "command": "pixi",
+            "args": ["install"],
+            "group": "build",
+            "detail": "Pixiで依存関係をインストール",
+            "problemMatcher": []
+        },
+        {
+            "label": "conan_install",
+            "type": "shell",
+            "command": "pixi",
+            "args": ["run", "conan", "install", ".", "-b", "missing", "--output-folder=build"],
+            "group": "build",
+            "detail": "Conanで依存関係をインストール",
+            "dependsOn": ["pixi_install"],
+            "problemMatcher": []
+        },
+        {
+            "label": "cmake_configure",
+            "type": "shell",
+            "command": "pixi",
+            "args": ["run", "cmake", "--preset", "${input:buildPreset}"],
+            "group": { "kind": "build", "isDefault": false },
+            "detail": "CMakeでプロジェクトを設定",
+            "dependsOn": ["conan_install"],
+            "problemMatcher": []
+        },
+        {
+            "label": "cmake_build",
+            "type": "shell",
+            "command": "pixi",
+            "args": ["run", "cmake", "--build", "build", "-j"],
+            "group": { "kind": "build", "isDefault": true },
+            "detail": "CMakeでプロジェクトをビルド",
+            "dependsOn": ["cmake_configure"],
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "cmake_clean",
+            "type": "shell",
+            "command": "pixi",
+            "args": ["run", "cmake", "--build", "build", "--target", "clean"],
+            "group": "build",
+            "detail": "ビルド成果物をクリーンアップ"
+        },
+        {
+            "label": "run_tests",
+            "type": "shell",
+            "command": "pixi",
+            "args": ["run", "cmake", "--build", "build", "--target", "test"],
+            "group": "test",
+            "detail": "テストを実行",
+            "dependsOn": ["cmake_build"]
+        },
+        {
+            "label": "quality_format",
+            "type": "shell",
+            "command": "pixi",
+            "args": ["run", "cmake", "--build", "build", "--target", "format"],
+            "group": "build",
+            "detail": "clang-formatでコードをフォーマット",
+            "dependsOn": ["cmake_configure"]
+        },
+        {
+            "label": "quality_lint",
+            "type": "shell",
+            "command": "pixi",
+            "args": ["run", "cmake", "--build", "build", "--target", "lint"],
+            "group": "build",
+            "detail": "clang-tidyでコードをリント",
+            "dependsOn": ["cmake_configure"]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "buildPreset",
+            "description": "ビルドプリセットを選択",
+            "type": "pickString",
+            "options": ["release", "debug", "relwithdebinfo"],
+            "default": "release"
+        },
+        {
+            "id": "buildType",
+            "description": "ビルドタイプを選択",
+            "type": "pickString",
+            "options": ["Debug", "Release", "RelWithDebInfo", "MinSizeRel"],
+            "default": "Release"
+        }
+    ]
+}
