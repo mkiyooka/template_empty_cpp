@@ -1,2 +1,4 @@
-# for direnv 
-[ -d .pixi ] && eval "$(pixi shell-hook)"
+# for direnv
+if [ -z "$PIXI_IN_SHELL" ]; then
+  [ -d .pixi ] && eval "$(pixi shell-hook)"
+fi

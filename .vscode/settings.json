@@ -21,11 +21,6 @@
             "args": ["-Command", "$env:PATH = \"$env:USERPROFILE\\.pixi\\bin;$env:PATH\"; pixi shell-hook --shell powershell | Invoke-Expression"]
         }
     },
-    /* Pixi extension settings */
-    "pixi.path": "${env:HOME}/.pixi/bin/pixi",
-    "pixi.defaultEnvironment": "default",
-    "pixi.activateEnvironmentInTerminal": true,
-    "pixi.detectionMode": "auto",
 
     /* C/C++ file settings */
     "[c]": {
