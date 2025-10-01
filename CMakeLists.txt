@@ -3,17 +3,12 @@
 # - project requirement: >= 3.19
 cmake_minimum_required(VERSION 3.19)
 
-# Set default build type before Conan setup
+# Set default build type
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     message(STATUS "Setting default build type to Release")
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
-
-# Conan setup
-include(${CMAKE_BINARY_DIR}/generators/conan_toolchain.cmake OPTIONAL)
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR}/generators)
-list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/generators)
 
 # Default compiler preference (non-macOS: GCC preferred)
 if(NOT APPLE AND NOT DEFINED CMAKE_C_COMPILER AND NOT DEFINED CMAKE_CXX_COMPILER)
@@ -52,11 +47,18 @@ option(USE_PCH "Use precompiled headers" OFF)
 
 include_directories(include)
 
-# Conanで導入されるサードパーティライブラリの検索
-find_package(doctest REQUIRED)
-
 # FetchContentで導入するライブラリ
 include(FetchContent)
+include(cmake/local-or-fetch.cmake)
+
+# doctest - Testing framework
+set(CMAKE_POLICY_DEFAULT_CMP0091 NEW)
+set(CMAKE_POLICY_VERSION_MINIMUM 3.5 CACHE STRING "" FORCE)
+declare_fetchcontent_with_local(doctest ext/doctest-2.4.11
+    GIT_REPOSITORY https://github.com/doctest/doctest.git
+    GIT_TAG v2.4.11
+)
+FetchContent_MakeAvailable(doctest)
 
 # ==============================================================================
 # Main Application - メインCLIアプリケーション
