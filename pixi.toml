@@ -14,7 +14,7 @@ cppcheck = "==2.18.3"  # Static analysis tool
 # Build Tools
 cmake = "==4.1.1"  # Build system generator
 ninja = "==1.13.1"  # Build system
-conan = "==2.20.1"  # Package Manager
+typos = ">=1.36.3,<2"
 
 # Linux-specific dependencies (GCC toolchain)
 [target.linux-64.dependencies]
@@ -44,13 +44,13 @@ libgcc-devel_win-64 = "*"  # GCC development libraries
 # winget install Git.Git MSYS2.MSYS2
 
 [tasks]
-setup-deps = "conan install . --output-folder=build --build=missing"
+# Main development tasks
 config = "cmake --preset=release"
 config-debug = "cmake --preset=debug"
-setup = "pixi install && pixi run setup-deps && pixi run config"
-setup-debug = "pixi install && pixi run setup-deps && pixi run config-debug"
 build = "cmake --build build -j"
-clean = "cmake --build build --target clean"
 test = "ctest --test-dir build"
-lint = "cmake --build build --target lint"
+clean = "cmake --build build --target clean"
 format = "cmake --build build --target format"
+lint = "cmake --build build --target lint"
+fullcheck = "pixi run typos && pixi run lint && pixi run run-cppcheck"
+run-cppcheck = "cmake --build build --target run-cppcheck"

@@ -106,7 +106,6 @@ add_custom_target(show-help
     COMMAND ${CMAKE_COMMAND} -E echo "  run-tests             - Run all tests"
     COMMAND ${CMAKE_COMMAND} -E echo ""
     COMMAND ${CMAKE_COMMAND} -E echo "Code quality targets:"
-    COMMAND ${CMAKE_COMMAND} -E echo "  fullcheck             - Run all quality checks"
     COMMAND ${CMAKE_COMMAND} -E echo "  format                - Format code with clang-format"
     COMMAND ${CMAKE_COMMAND} -E echo "  format-dry            - Check formatting without changes"
     COMMAND ${CMAKE_COMMAND} -E echo "  lint                  - Lint code with clang-tidy"
@@ -148,7 +147,6 @@ list(REMOVE_ITEM COMPILABLE_SOURCE_FILES ${EXT_FILES})
 include(cmake/quality-tools.cmake)
 setup_quality_tools()
 setup_quality_targets("${ALL_SOURCE_FILES}" "${COMPILABLE_SOURCE_FILES}")
-setup_quality_check_target()
 
 # ==============================================================================
 # Third-Party License Aggregation
