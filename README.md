@@ -23,6 +23,16 @@ pixi run build
 pixi run test
 ```
 
+## 実行
+
+```bash
+# メインアプリケーション
+./build/app
+
+# テスト個別実行
+./build/tests/test_core
+```
+
 ## 開発ツール
 
 ```bash

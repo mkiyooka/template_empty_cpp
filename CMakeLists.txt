@@ -27,6 +27,11 @@ project(optparse_cpp
     LANGUAGES CXX C
 )
 
+# バイナリ出力ディレクトリの設定
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+# set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+# set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
 # compile_commands.json 生成とプロジェクトルートディレクトリへの自動配置
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_custom_target(copy_compile_commands ALL
