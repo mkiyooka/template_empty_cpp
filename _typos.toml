@@ -1,7 +1,8 @@
 [files]
 extend-exclude = [
-  "ext/",
   "third_party/",
+  "external/",
+  "ext/",
   "build/",
   "*.csv",
 ]
