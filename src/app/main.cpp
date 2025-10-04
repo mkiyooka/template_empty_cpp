@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "sub/sub.hpp"
+#include "myproject/core/core.hpp"
 
 int main() {
     std::cout << "Hello, World!\n" << std::flush;

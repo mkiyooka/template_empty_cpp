@@ -36,9 +36,20 @@ pixi run lint
 pixi run fullcheck
 ```
 
-## ディレクトリ構造
+## ディレクトリ構成
 
+```markdown
 - `src/`: ソースコード
+    - `core/`: 共通ロジック
+    - `app/`: 実行ファイル
 - `include/`: ヘッダーファイル
+    - `myproject/core/`: プロジェクト公開API
 - `tests/`: テストコード
 - `cmake/`: CMake設定ファイル
+    - `local-or-fetch.cmake`: FetchContentヘルパー
+    - `dependencies-app.cmake`: アプリ用ライブラリ
+    - `dependencies-test.cmake`: テスト用ライブラリ
+    - `custom-targets.cmake`: カスタムターゲット
+    - `quality-setup.cmake`: コード品質設定
+    - `quality-tools.cmake`: コード品質ツール
+```

@@ -8,12 +8,12 @@
     },
     "tasks": [
         {
-            "label": "setup_release",
+            "label": "config_release",
             "type": "shell",
             "command": "pixi",
-            "args": ["run", "setup"],
+            "args": ["run", "config"],
             "group": "build",
-            "detail": "cmakeによるbuildに必要なセットアップを一括実行",
+            "detail": "CMakeの設定（Release）",
             "problemMatcher": []
         },
         {
@@ -23,16 +23,16 @@
             "args": ["run", "build"],
             "group": { "kind": "build", "isDefault": true },
             "detail": "CMakeでプロジェクトをビルド",
-            "dependsOn": ["setup_release"],
+            "dependsOn": ["config_release"],
             "problemMatcher": ["$gcc"]
         },
         {
-            "label": "setup_debug",
+            "label": "config_debug",
             "type": "shell",
             "command": "pixi",
-            "args": ["run", "setup-debug"],
+            "args": ["run", "config-debug"],
             "group": "build",
-            "detail": "cmakeによるbuildに必要なセットアップを一括実行",
+            "detail": "CMakeの設定（Debug）",
             "problemMatcher": []
         },
         {
@@ -42,7 +42,7 @@
             "args": ["run", "build"],
             "group": { "kind": "build", "isDefault": true },
             "detail": "CMakeでプロジェクトをビルド",
-            "dependsOn": ["setup_debug"],
+            "dependsOn": ["config_debug"],
             "problemMatcher": ["$gcc"]
         },
         {
@@ -69,7 +69,7 @@
             "args": ["run", "format"],
             "group": "build",
             "detail": "clang-formatでコードをフォーマット",
-            "dependsOn": ["setup_release"]
+            "dependsOn": ["config_release"]
         },
         {
             "label": "quality_lint",
@@ -78,7 +78,16 @@
             "args": ["run", "lint"],
             "group": "build",
             "detail": "clang-tidyでコードをリント",
-            "dependsOn": ["setup_release"]
+            "dependsOn": ["config_release"]
+        },
+        {
+            "label": "quality_fullcheck",
+            "type": "shell",
+            "command": "pixi",
+            "args": ["run", "fullcheck"],
+            "group": "build",
+            "detail": "全品質チェックを実行",
+            "dependsOn": ["config_release"]
         }
     ]
 }

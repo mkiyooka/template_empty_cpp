@@ -2,7 +2,7 @@
 
 #include <doctest/doctest.h>
 
-#include "sub/sub.hpp"
+#include "myproject/core/core.hpp"
 
 TEST_CASE("Add function tests") {
     SUBCASE("Int Add function") {
