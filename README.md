@@ -61,3 +61,12 @@ pixi run fullcheck
     - `custom-targets.cmake`: カスタムターゲット
     - `quality-setup.cmake`: コード品質設定
     - `quality-tools.cmake`: コード品質ツール
+
+## GNU make
+
+ninjaの代わりにmakeを利用したい場合は`CMakePresets.json`を以下のように修正してください。
+
+```diff
+-            "generator": "Ninja",
++            "generator": "Unix Makefiles",
+```
