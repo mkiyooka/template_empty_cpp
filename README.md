@@ -48,7 +48,6 @@ pixi run fullcheck
 
 ## ディレクトリ構成
 
-```markdown
 - `src/`: ソースコード
     - `core/`: 共通ロジック
     - `app/`: 実行ファイル
@@ -62,4 +61,3 @@ pixi run fullcheck
     - `custom-targets.cmake`: カスタムターゲット
     - `quality-setup.cmake`: コード品質設定
     - `quality-tools.cmake`: コード品質ツール
-```
