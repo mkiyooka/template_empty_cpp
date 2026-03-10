@@ -9,6 +9,22 @@
 - **テストフレームワーク**: doctest
 - **C++標準**: C++17
 
+## 必要条件
+
+このプロジェクトではpixiを利用します。
+
+- [pixi](https://prefix.dev/)
+
+### pixi のインストール
+
+```bash
+# Linux / macOS
+curl -fsSL https://pixi.sh/install.sh | bash
+# インストール後にシェルを再起動するか、以下を実行する
+source ~/.bashrc   # bash の場合
+source ~/.zshrc    # zsh の場合
+```
+
 ## セットアップ
 
 ```bash
@@ -61,6 +77,14 @@ pixi run fullcheck
     - `custom-targets.cmake`: カスタムターゲット
     - `quality-setup.cmake`: コード品質設定
     - `quality-tools.cmake`: コード品質ツール
+
+## valgrind
+
+valgrindはpixi依存ではなく、システムのaptで導入してください。
+
+```bash
+sudo apt install valgrind
+```
 
 ## GNU make
 

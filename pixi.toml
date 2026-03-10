@@ -1,4 +1,4 @@
-[project]
+[workspace]
 name = "cpp-dev"
 version = "0.1.0"
 description = "C++ Development Environment"
@@ -28,7 +28,7 @@ gxx = "==15.1.0"  # G++ compiler
 mold = "==2.40.4"
 libgcc-ng = "==15.1.0"  # GCC runtime library
 libstdcxx-ng = "==15.1.0"  # C++ standard library
-valgrind = "==3.26.0"
+# valgrind = "==3.26.0"  # Use system apt instead
 
 [target.win-64.dependencies]
 clang_win-64 = "==21.1"  # Clang cross-compiler for Windows
@@ -44,7 +44,11 @@ config = "cmake --preset=release"
 config-debug = "cmake --preset=debug"
 build = "cmake --build build -j 8"
 test = "ctest --test-dir build"
-clean = "cmake --build build --target clean"
+clean = """
+cmake --build build --target clean || true &&
+cmake --build build-asan --target clean || true &&
+cmake --build build-coverage --target clean || true
+"""
 format = "cmake --build build --target format"
 lint = "cmake --build build --target lint"
 run-cppcheck = "cmake --build build --target run-cppcheck"
