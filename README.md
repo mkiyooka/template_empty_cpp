@@ -62,6 +62,62 @@ pixi run lint
 pixi run fullcheck
 ```
 
+## サニタイザ（Linux）
+
+AddressSanitizer と UndefinedBehaviorSanitizer を有効にしてテストを実行します。
+
+```bash
+pixi run asan
+```
+
+## カバレッジ（Linux）
+
+Clang のソースベースカバレッジを使用してレポートを生成します。
+
+```bash
+pixi run coverage
+```
+
+HTML レポートは `build-coverage/coverage-html/index.html` に生成されます。
+
+### カバレッジレポートの対象
+
+カバレッジレポートには **プロダクションコードのみ** を含めることが推奨されます。
+
+**テストコードを除外する方法（フィルタ）:**
+
+`cmake/coverage.cmake` の `--ignore-filename-regex` オプションで制御します。
+
+```cmake
+"--ignore-filename-regex=.*/build-coverage/.*|.*/third_party/.*|.*/.pixi/.*|.*/tests/.*"
+```
+
+| パターン | 除外対象 |
+| --- | --- |
+| `.*/build-coverage/.*` | ビルド生成物 |
+| `.*/third_party/.*` | FetchContent で取得したサードパーティライブラリ |
+| `.*/.pixi/.*` | pixi 環境のヘッダー |
+| `.*/tests/.*` | テストコード |
+
+**カバレッジ対象に含める方法:**
+
+上記 `--ignore-filename-regex` から除外したいパスのパターンを削除してください。
+たとえばテストコードもレポートに含めたい場合は `.*/tests/.*` を削除します。
+
+## valgrind（Linux）
+
+valgrind はシステムの apt で導入してください（pixi 依存には含まれません）。
+
+```bash
+sudo apt install valgrind
+```
+
+導入後は以下で実行できます。
+
+```bash
+pixi run valgrind
+```
+
 ## ディレクトリ構成
 
 - `src/`: ソースコード
@@ -77,14 +133,6 @@ pixi run fullcheck
     - `custom-targets.cmake`: カスタムターゲット
     - `quality-setup.cmake`: コード品質設定
     - `quality-tools.cmake`: コード品質ツール
-
-## valgrind
-
-valgrindはpixi依存ではなく、システムのaptで導入してください。
-
-```bash
-sudo apt install valgrind
-```
 
 ## GNU make
 

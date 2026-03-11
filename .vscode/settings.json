@@ -83,7 +83,6 @@
         "**/*.egg-info": true,
         // C++ build artifacts
         "**/.pixi": true,
-        "**/build": true,
         "**/.cache": true,
         "**/*.o": true,
         "**/*.obj": true
@@ -101,7 +100,6 @@
         "**/libs": true,
         // C++ build artifacts
         "**/.pixi": true,
-        "**/build": true,
         "**/.cache": true,
         "**/*.o": true,
         "**/*.obj": true,

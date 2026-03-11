@@ -29,6 +29,18 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON) # Enable position-independent code. add 
 message(STATUS "C   compiler : ${CMAKE_C_COMPILER} (${CMAKE_C_COMPILER_ID} ${CMAKE_C_COMPILER_VERSION})")
 message(STATUS "C++ compiler : ${CMAKE_CXX_COMPILER} (${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION})")
 
+# --- ar（アーカイバ）---
+# conda-forge の GCC パッケージは "ar" シンボリックリンクを作成しないため
+# gcc-ar / llvm-ar / x86_64-conda-linux-gnu-ar などを優先的に検索する
+if(NOT CMAKE_AR)
+    find_program(_AR_EXE NAMES gcc-ar llvm-ar x86_64-conda-linux-gnu-ar ar)
+    if(_AR_EXE)
+        set(CMAKE_AR "${_AR_EXE}" CACHE FILEPATH "Archiver" FORCE)
+        message(STATUS "ar            : ${CMAKE_AR}")
+    endif()
+    unset(_AR_EXE CACHE)
+endif()
+
 # --- ccache ---
 # pixi run 経由ではpixi環境のccacheがPATHに含まれるため NO_DEFAULT_PATH は使わない
 find_program(CCACHE_EXE NAMES ccache)
@@ -100,6 +112,12 @@ add_custom_target(copy_compile_commands ALL
 
 include_directories(include)
 
+# カバレッジフラグ（add_subdirectory より前に設定する必要がある）
+include(cmake/coverage-flags.cmake)
+
+# サニタイザフラグ（add_subdirectory より前に設定する必要がある）
+include(cmake/sanitizer-flags.cmake)
+
 # サードパーティライブラリの導入
 include(FetchContent)
 include(cmake/local-or-fetch.cmake)
@@ -135,6 +153,9 @@ add_subdirectory(tests)
 
 # カスタムターゲット
 include(cmake/custom-targets.cmake)
+
+# カバレッジ
+include(cmake/coverage.cmake)
 
 # コード品質ツール
 include(cmake/quality-setup.cmake)

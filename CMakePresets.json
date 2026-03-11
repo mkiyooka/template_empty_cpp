@@ -35,6 +35,24 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo"
             }
+        },
+        {
+            "name": "asan",
+            "inherits": "base",
+            "binaryDir": "${sourceDir}/build-asan",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "ENABLE_SANITIZERS": "ON"
+            }
+        },
+        {
+            "name": "coverage",
+            "inherits": "base",
+            "binaryDir": "${sourceDir}/build-coverage",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "ENABLE_COVERAGE": "ON"
+            }
         }
     ],
     "buildPresets": [
@@ -49,6 +67,14 @@
         {
             "name": "relwithdebinfo",
             "configurePreset": "relwithdebinfo"
+        },
+        {
+            "name": "asan",
+            "configurePreset": "asan"
+        },
+        {
+            "name": "coverage",
+            "configurePreset": "coverage"
         }
     ],
     "testPresets": [
@@ -63,6 +89,14 @@
         {
             "name": "relwithdebinfo",
             "configurePreset": "relwithdebinfo"
+        },
+        {
+            "name": "asan",
+            "configurePreset": "asan"
+        },
+        {
+            "name": "coverage",
+            "configurePreset": "coverage"
         }
     ]
 }
